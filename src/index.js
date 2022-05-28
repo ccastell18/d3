@@ -1,3 +1,17 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyAuAz0fGO79Pdtama_N8A3Ov-SAbyuSjDA',
+  authDomain: 'd3firebase-157bb.firebaseapp.com',
+  projectId: 'd3firebase-157bb',
+  storageBucket: 'd3firebase-157bb.appspot.com',
+  messagingSenderId: '226060521444',
+  appId: '1:226060521444:web:89c898a34c5ad3ac2201f1',
+};
+
+initializeApp(firebaseConfig);
+
 const svg = d3
   .select('.canvas')
   .append('svg')
@@ -20,7 +34,15 @@ const xAxisGroup = graph
   .attr('transform', `translate(0, ${graphHeight})`);
 const yAxisGroup = graph.append('g');
 
-d3.json('menu.json').then((data) => {
+const db = getFirestore();
+const colRef = collection(db, 'dishes');
+
+getDocs(colRef).then((snapshot) => {
+  let data = [];
+  snapshot.docs.forEach((doc) => {
+    data.push({ ...doc.data(), id: doc.id });
+  });
+
   const y = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d.orders)])

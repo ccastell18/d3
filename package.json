@@ -1,0 +1,28 @@
+{
+  "name": "d3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scales.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccastell18/d3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccastell18/d3/issues"
+  },
+  "homepage": "https://github.com/ccastell18/d3#readme",
+  "dependencies": {
+    "firebase": "^9.8.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
