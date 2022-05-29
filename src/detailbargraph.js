@@ -109,3 +109,104 @@ onSnapshot(colRef, (snapshot) => {
   });
   update(data);
 });
+
+// getDocs(colRef).then((snapshot) => {
+//   snapshot.docChanges().forEach((change) => {
+//     const doc = { ...change.doc.data(), id: change.doc.id };
+//     console.log(doc);
+//     console.log(change);
+
+//     switch (change.type) {
+//       case 'added':
+//         data.push(doc);
+//         break;
+//       case 'modified':
+//         const index = data.findIndex((item) => item.id == doc.id);
+//         data[index] = doc;
+//         break;
+//       case 'removed':
+//         data = data.filter((item) => item.id !== doc.id);
+//         break;
+//       default:
+//         break;
+//     }
+//   });
+//   update(data);
+// });
+
+// const y = d3
+//   .scaleLinear()
+//   .domain([0, d3.max(data, (d) => d.orders)])
+//   .range([graphHeight, 0]);
+
+//min
+// const min = d3.min(data, (d) => d.orders);
+
+// //max
+// const max = d3.max(data, (d) => d.orders);
+
+// //extent (min and max)
+// const extent = d3.extent(data, (d) => d.orders);
+//bandscale
+// const x = d3
+//   .scaleBand()
+//   .domain(data.map((item) => item.name))
+//   .range([0, 500])
+//   .paddingInner(0.2)
+//   .paddingOuter(0.2);
+
+//join data to rects
+// const rects = graph.selectAll('rect').data(data);
+
+// rects
+//   .attr('width', x.bandwidth)
+//   .attr('height', (d) => graphHeight - y(d.orders))
+//   .attr('fill', 'orange')
+//   .attr('x', (d) => x(d.name))
+//   .attr('y', (d) => y(d.orders));
+
+// //append enter selection to DOM
+// rects
+//   .enter()
+//   .append('rect')
+//   .attr('width', x.bandwidth)
+//   .attr('height', (d) => graphHeight - y(d.orders))
+//   .attr('fill', 'orange')
+//   .attr('x', (d) => x(d.name))
+//   .attr('y', (d) => y(d.orders));
+
+//create and call axis
+// const xAxis = d3.axisBottom(x);
+// const yAxis = d3
+//   .axisLeft(y)
+//   .ticks(3)
+//   .tickFormat((d) => d + ' orders');
+
+// xAxisGroup.call(xAxis);
+// yAxisGroup.call(yAxis);
+
+// xAxisGroup
+//   .selectAll('text')
+//   .attr('transform', 'rotate(-40)')
+//   .attr('text-anchor', 'end')
+//   .attr('fill', 'orange');
+
+// const update = (data) => {
+//   //update scales (domeains) if they use the data
+//   y.domain([0, d3.max(data, (d) => d.orders)]);
+
+//   // join updated data to elements
+//   const rects = graph.selectAll('rect').data(data);
+
+//   //remove unwanted shapes using the exit selection
+//   rects.exit().remove();
+
+//   //update current shapes in the DOM
+//   rootCertificates.attr(...etc);
+
+//   //append the endter selection to the DOM
+//   rects
+//     .enter()
+//     .append('rect')
+//     .attr(...etc);
+// };
