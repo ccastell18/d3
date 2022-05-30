@@ -60,20 +60,47 @@ const arcPath = d3
 //ordinal scale
 const color = d3.scaleOrdinal(d3['schemeSet3']);
 
+//legend
+const legendGroup = svg
+  .append('g')
+  .attr('transform', `translate(${dims.width + 40},10 )`);
+
+const legend = d3.legendColor().shape('circle').shapePadding(10).scale(color);
+
 const update = (data) => {
   //update color scale domain
   color.domain(data.map((d) => d.name));
 
   //join ehanced pie data to path elements
   const paths = graph.selectAll('path').data(pie(data));
+
+  //update call legend
+  legendGroup.call(legend);
+  legendGroup.selectAll('text').attr('fill', '#fff');
+
+  //handle exit selection
+  paths.exit().transition().duration(750).attrTween('d', arcTweenExit).remove();
+
+  //update
+  paths
+    .attr('d', arcPath)
+    .transition()
+    .duration(750)
+    .attrTween('d', arcTweenUpdate);
+
   paths
     .enter()
     .append('path')
     .attr('class', 'arc')
-    .attr('d', arcPath)
     .attr('stroke', '#fff')
     .attr('stroke-width', '#000')
-    .attr('fill', (d) => color(d.data.name));
+    .attr('fill', (d) => color(d.data.name))
+    .each(function (d) {
+      this._current = d;
+    })
+    .transition()
+    .duration(750)
+    .attrTween('d', arcTweenEnter);
 };
 
 onSnapshot(colRef, (snapshot) => {
@@ -99,3 +126,33 @@ onSnapshot(colRef, (snapshot) => {
   });
   update(data);
 });
+
+const arcTweenEnter = (d) => {
+  let i = d3.interpolate(d.endAngle, d.startAngle);
+
+  return function (t) {
+    d.startAngle = i(t);
+    return arcPath(d);
+  };
+};
+
+const arcTweenExit = (d) => {
+  let i = d3.interpolate(d.startAngle, d.endAngle);
+
+  return function (t) {
+    d.endAngle = i(t);
+    return arcPath(d);
+  };
+};
+
+function arcTweenUpdate(d) {
+  //interpolate between two objects
+  let i = d3.interpolate(this._current, d);
+
+  //update the current prop with new updated data
+  this._current = i(1);
+
+  return function (t) {
+    return arcPath(i(t));
+  };
+}
