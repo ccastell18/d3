@@ -61,20 +61,25 @@ const update = (data) => {
   //update current shapes in DOM
   rects
     .attr('width', x.bandwidth)
-    .attr('height', (d) => graphHeight - y(d.orders))
     .attr('fill', 'orange')
     .attr('x', (d) => x(d.name))
-    .attr('y', (d) => y(d.orders));
-
+    .transition()
+    .duration(500)
+    .attr('y', (d) => y(d.orders))
+    .attr('height', (d) => graphHeight - y(d.orders));
   //append enter selection to DOM
   rects
     .enter()
     .append('rect')
     .attr('width', x.bandwidth)
-    .attr('height', (d) => graphHeight - y(d.orders))
+    .attr('height', 0)
     .attr('fill', 'orange')
     .attr('x', (d) => x(d.name))
-    .attr('y', (d) => y(d.orders));
+    .attr('y', graphHeight)
+    .transition()
+    .duration(5000)
+    .attr('y', (d) => y(d.orders))
+    .attr('height', (d) => graphHeight - y(d.orders));
 
   //call axies
 
