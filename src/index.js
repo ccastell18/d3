@@ -29,13 +29,6 @@ form.addEventListener('submit', (e) => {
     }).then(() => {
       form.reset();
     });
-    // onSnapshot(colRef, (snapshot) => {
-    //   snapshot.docChanges().forEach((change) => {
-    //     let doc = { ...change.doc.data() };
-
-    //     data.push(doc);
-    //   });
-    // });
   } else {
     error.textContent = 'Please enter values before submitting';
   }
@@ -63,3 +56,46 @@ const arcPath = d3
   .arc()
   .outerRadius(dims.radius)
   .innerRadius(dims.radius / 2);
+
+//ordinal scale
+const color = d3.scaleOrdinal(d3['schemeSet3']);
+
+const update = (data) => {
+  //update color scale domain
+  color.domain(data.map((d) => d.name));
+
+  //join ehanced pie data to path elements
+  const paths = graph.selectAll('path').data(pie(data));
+  paths
+    .enter()
+    .append('path')
+    .attr('class', 'arc')
+    .attr('d', arcPath)
+    .attr('stroke', '#fff')
+    .attr('stroke-width', '#000')
+    .attr('fill', (d) => color(d.data.name));
+};
+
+onSnapshot(colRef, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    const doc = { ...change.doc.data(), id: change.doc.id };
+    console.log(doc);
+    console.log(change);
+
+    switch (change.type) {
+      case 'added':
+        data.push(doc);
+        break;
+      case 'modified':
+        const index = data.findIndex((item) => item.id == doc.id);
+        data[index] = doc;
+        break;
+      case 'removed':
+        data = data.filter((item) => item.id !== doc.id);
+        break;
+      default:
+        break;
+    }
+  });
+  update(data);
+});
