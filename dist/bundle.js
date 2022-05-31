@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n//# sourceURL=webpack://d3/./src/index.js?");
+eval("const btns = document.querySelectorAll('button');\nconst form = document.querySelector('form');\nconst formAct = document.querySelector('form span');\nconst input = document.querySelector('input');\nconst error = document.querySelector('.error');\n\nlet activity = 'cycling';\n\nbtns.forEach((btn) => {\n  btn.addEventListener('click', (e) => {\n    //get activity\n    activity = e.target.dataset.activity;\n\n    //remove and add active class\n    btns.forEach((btn) => btn.classList.remove('active'));\n    e.target.classList.add('active');\n\n    //set id of input field\n    input.setAttribute('id', activity);\n\n    //set text of form span\n    formAct.textContent = activity;\n  });\n});\n\n\n//# sourceURL=webpack://d3/./src/index.js?");
 
 /***/ })
 
