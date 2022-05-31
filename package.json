@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ccastell18/d3#readme",
   "dependencies": {
+    "d3-tip-2021": "^0.10.1",
     "firebase": "^9.8.2"
   },
   "devDependencies": {

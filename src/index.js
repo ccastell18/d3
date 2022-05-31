@@ -1,8 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import {
+  doc,
   getFirestore,
   collection,
-  getDocs,
+  deleteDoc,
   addDoc,
   onSnapshot,
 } from 'firebase/firestore';
@@ -67,6 +68,19 @@ const legendGroup = svg
 
 const legend = d3.legendColor().shape('circle').shapePadding(10).scale(color);
 
+//tool tip
+const tip = d3
+  .tip()
+  .attr('class', 'd3-tip card')
+  .html((event, d) => {
+    let content = `<div class="name">${d.data.name}</div>`;
+    content += `<div clas="name">$${d.data.cost}</div>`;
+    content += `<div clas="delete">Click slice to Delete</div>`;
+    return content;
+  });
+
+graph.call(tip);
+
 const update = (data) => {
   //update color scale domain
   color.domain(data.map((d) => d.name));
@@ -101,13 +115,24 @@ const update = (data) => {
     .transition()
     .duration(750)
     .attrTween('d', arcTweenEnter);
+
+  //add events
+  graph
+    .selectAll('path')
+    .on('mouseover', (event, d) => {
+      tip.show(event, d);
+      handleMouseOver(event, d);
+    })
+    .on('mouseout', (event, d) => {
+      tip.hide(event, d);
+      handleMouseOut(event, d);
+    })
+    .on('click', handleClick);
 };
 
 onSnapshot(colRef, (snapshot) => {
   snapshot.docChanges().forEach((change) => {
     const doc = { ...change.doc.data(), id: change.doc.id };
-    console.log(doc);
-    console.log(change);
 
     switch (change.type) {
       case 'added':
@@ -156,3 +181,24 @@ function arcTweenUpdate(d) {
     return arcPath(i(t));
   };
 }
+
+//event handlers
+const handleMouseOver = (event, d) => {
+  d3.select(event.currentTarget)
+    .transition('changeSliceFill')
+    .duration(300)
+    .attr('fill', '#fff');
+};
+
+const handleMouseOut = (event, d) => {
+  d3.select(event.currentTarget)
+    .transition('changeSliceFill ')
+    .duration(300)
+    .attr('fill', color(d.data.name));
+};
+
+const handleClick = (event, d) => {
+  const id = d.data.id;
+  console.log(e.currentTarget);
+  deleteDoc(doc(colRef, id));
+};
