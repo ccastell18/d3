@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/bumbeishvili/d3-tip-for-v6@4/d3-tip.min.css"
+    />
+    <title>Document</title>
+    <style>
+      h2,
+      p {
+        margin: 10px 0;
+      }
+      header {
+        margin-bottom: 40px;
+      }
+    </style>
+  </head>
+  <body class="indigo">
+    <header class="indigo darkr-1 section">
+      <h2 class="center white-text">Budget keeper</h2>
+      <p class="flow-text grey-text center text-lighten-2">
+        Monthly money tracker
+      </p>
+    </header>
+    <div class="container section">
+      <div class="row">
+        <div class="col s12 m6">
+          <form class="card z-depth-0">
+            <div class="card-content">
+              <span class="card-title indigo-text">Add Item</span>
+              <div class="input-field">
+                <input type="text" id="name" />
+                <label for="name">Item Name</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="cost" />
+                <label for="cost">Item Cost</label>
+              </div>
+              <div class="input-field center">
+                <button class="btn-large pink white-text">Add Item</button>
+              </div>
+              <div class="input-field center">
+                <p class="red-text" id="error"></p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col s12 m5 push-m1">
+          <div class="canvas"></div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"
+      integrity="sha512-5mCB0Kvv97yTzqo0174qxPjMisck/WlK51+mw/RV7UfYbtHI8LuLR82BzZuxHUKSfbh75u9cZHgUcqrZDaBJuA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/d3-v6-tip@1.0.6/build/d3-v6-tip.js"></script>
+    <script src="./bundle.js"></script>
+  </body>
+</html>
