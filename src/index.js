@@ -72,9 +72,31 @@ const graph = svg
   .attr('height', graphHeight)
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
+//scales
+const x = d3.scaleTime([0, graphWidth]);
+const y = d3.scaleLinear([graphHeight, 0]);
+
+//axes group
+const xAxisGroup = graph
+  .append('g')
+  .attr('class', 'x-axis')
+  .attr('transform', `translate(0, ${graphHeight})`);
+
+const yAxisGroup = graph.append('g').attr('class', 'y-axis');
+
 //graph update
 const update = (data) => {
-  console.log(data);
+  //domains
+  x.domain(d3.extent(data, (d) => new Date(d.date)));
+  y.domain([0, d3.max(data, (d) => d.distance)]);
+
+  //axes
+  const xAxis = d3.axisBottom(x).ticks(4);
+  const yAxis = d3.axisLeft(y).ticks(4);
+
+  //call axes
+  xAxisGroup.call(xAxis);
+  yAxisGroup.call(yAxis);
 };
 
 //graph
