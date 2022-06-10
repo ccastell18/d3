@@ -6,15 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
   </head>
   <body>
-    <div class="canvas"></div>
+    <div class="bg-danger section">
+      <h2 class="text-lignt text-center">D3 Corp</h2>
+    </div>
+    <div class="bg-light p-0" style="position: relative">
+      <p class="text-center">Number one Nintendo Company</p>
+      <section class="bg-light">
+        <div class="container">
+          <div class="text-center">
+            <h2>Add New Employee</h2>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md- text-center">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Eligendi accusantium, maxime autem ad perspiciatis modi ea
+                quaerat eius. At natus, sint, sequi iste dolores exercitationem
+                aliquam consectetur voluptatum facere modi harum, laborum a
+                aspernatur. Esse amet iure labore suscipit cumque. Saepe alias
+                deleniti provident doloribus, omnis maiores non voluptate quia.
+              </p>
+              <button
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#reg-modal"
+              >
+                Add User
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div
+      class="modal fade"
+      id="reg-modal"
+      tabindex="-1"
+      aria-labelledby="modal-title"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">Add New User</h5>
+          </div>
+          <div class="modal-body">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias,
+              distinctio atque, facilis id aliquam ex modi porro minus
+              doloremque ratione reprehenderit, beatae suscipit nihil molestias.
+            </p>
+            <label for="modal-email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="modal-email"
+              placeholeder="Enter email here"
+            />
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <div class="container-fluid">
+      <div class="canvas"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="./bundle.js"></script>
     <!-- <script src="./basics.js"></script> -->
   </body>
